@@ -1,0 +1,73 @@
+package edu.nyu.yaowang.leetcode.tree;
+
+import edu.nyu.yaowang.leetcode.TreeNode;
+
+/**
+ * Created by Yao on 2/5/15.
+ * http://fisherlei.blogspot.com/2012/12/leetcode-recover-binary-search-tree.html
+ * Morris traversal的变形
+ */
+public class RecoverBinarySearchTree {
+    public void recoverTree(TreeNode root) {
+
+       TreeNode cur = root;
+       TreeNode pre = null;
+        TreeNode f1 = null;
+        TreeNode f2 = null;
+        TreeNode parent= null;
+        boolean found = false;
+
+        while(cur!=null) {
+            if(cur.left==null) {
+                if(parent!=null && parent.val > cur.val)
+                {
+                    if(!found)
+                    {
+                        f1 = parent;
+                        found = true;
+                    }
+                    f2 = cur;
+                }
+                parent = cur;
+                cur = cur.right;
+            } else {
+                pre = cur.left;
+                while(pre.right!=null && pre.right!=cur) {
+                    pre = pre.right;
+                }
+
+                if(pre==null) {
+                    pre.right = cur;
+                    cur = cur.left;
+                } else {
+                    pre.right = null;
+                    if(parent.val > cur.val)
+                    {
+                        if(!found)
+                        {
+                            f1 = parent;
+                            found = true;
+                        }
+                        f2 = cur;
+                    }
+                    parent = cur;
+                    cur = cur.right;
+
+                }
+
+
+
+            }
+
+
+        }
+
+        if(f1!=null&&f2!=null) {
+            int tmp=f1.val;
+            f1.val = f2.val;
+            f2.val = tmp;
+        }
+
+
+    }
+}

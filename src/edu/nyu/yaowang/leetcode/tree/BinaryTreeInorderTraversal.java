@@ -12,6 +12,8 @@ import java.util.Stack;
  * Iterative version: 193ms
  * Iterative version解题思路，遇到node, 先push, 然后traverse左子树。如果左边没有，那么visit这个node, 然后
  * traverse右节点的子树。
+ *
+ * Morris traversal方法：http://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
  */
 @SuppressWarnings("unused")
 public class BinaryTreeInorderTraversal {
@@ -46,6 +48,37 @@ public class BinaryTreeInorderTraversal {
                 cur = formerNodes.pop();
                 ret.add(cur.val);
                 cur = cur.right;
+            }
+
+        }
+
+        return ret;
+    }
+
+    public List<Integer> inorderTraversalMorris(TreeNode root) {
+        List<Integer> ret = new ArrayList<Integer>();
+        TreeNode cur = root;
+        TreeNode pre = null;
+
+        while(cur!=null) {
+            if(cur.left==null) {
+                ret.add(cur.val);
+                cur = cur.right;
+            } else {
+                pre = cur.left;
+
+                while(pre.right!=null && pre.right!=cur) {
+                    pre = pre.right;
+                }
+                if(pre.right==null) {
+                    pre.right = cur;
+                    cur = cur.left;
+                } else {
+                    pre.right = null;
+                    ret.add(cur.val);
+                    cur = cur.right;
+                }
+
             }
 
         }

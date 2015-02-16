@@ -1,13 +1,10 @@
 package edu.nyu.yaowang.leetcode.array;
 
 /**
- * Created by Yao on 1/19/15.
- * 和右边的值比较
+ * Created by Yao on 1/30/15.
  */
-@SuppressWarnings("unused")
-public class FindMinInRotatedArray {
-    public int findMin(int[] num) throws Exception{
-
+public class FindMinInRotatedArrayTwo {
+    public int findMin(int[] num) {
         int lo = 0;
         int hi = num.length - 1;
         int mid = 0;
@@ -18,13 +15,14 @@ public class FindMinInRotatedArray {
             if (num[mid] > num[hi]) {
                 lo = mid + 1;
             }
-            else {
-                //不要-1
+            else if (num[mid] < num[hi]) {
+                //这里不是减1， 因为本身也可能是解
                 hi = mid;
+            }
+            else { // when num[mid] and num[hi] are same
+                hi--;
             }
         }
         return num[lo];
-
-
     }
 }
