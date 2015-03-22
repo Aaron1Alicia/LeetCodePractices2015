@@ -4,7 +4,8 @@ import edu.nyu.yaowang.leetcode.TreeNode;
 
 /**
  * Created by Yao on 1/17/15.
- * 257ms
+ * 257ms, 这一题的要点是用树的深度来兼职作为树是否balanced的标志, 这样可以将递归问题转换为DFS，
+ * 将时间复杂度从NlogN降到logN
  */
 public class BalancedBinaryTree {
     public boolean isBalanced(TreeNode root) {

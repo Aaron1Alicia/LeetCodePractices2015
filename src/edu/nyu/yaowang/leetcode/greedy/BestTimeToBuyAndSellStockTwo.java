@@ -7,21 +7,19 @@ package edu.nyu.yaowang.leetcode.greedy;
 public class BestTimeToBuyAndSellStockTwo {
     public int maxProfit(int[] prices) {
 
-        if(prices==null || prices.length==0){
-            return 0;
+        int ret = 0;
+        if(prices==null || prices.length==0) {
+            return ret;
         }
+
         int n = prices.length;
-        int previous = prices[0];
-        int sum = 0;
 
-        for(int i=1;i<n;i++) {
-
-            if(prices[i]>previous) {
-                sum+=prices[i]- previous;
+        for(int i=1; i<n; i++) {
+            if(prices[i]>prices[i-1]) {
+                ret+=(prices[i]-prices[i-1]);
             }
-            previous = prices[i];
-        }
 
-        return sum;
+        }
+        return ret;
     }
 }

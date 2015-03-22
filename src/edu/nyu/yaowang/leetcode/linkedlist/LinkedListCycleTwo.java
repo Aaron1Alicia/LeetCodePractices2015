@@ -10,27 +10,24 @@ public class LinkedListCycleTwo {
         ListNode slow = head;
         ListNode fast = head;
 
-        while(fast!=null) {
+        while(fast!=null && fast.next!=null) {
             slow = slow.next;
-            fast = fast.next;
-
-            if(fast!=null) {
-                fast = fast.next;
-            } else {
-                return null;
-            }
+            fast = fast.next.next;
             if(slow==fast) {
-                slow=head;
-                while(slow!=fast) {
-                    slow = slow.next;
-                    fast = fast.next;
-                }
-                return slow;
+                break;
             }
-
         }
 
-        return null;
+        if(fast==null || fast.next==null) {
+            return null;
+        }
 
+        slow = head;
+        while(slow!=fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
     }
 }

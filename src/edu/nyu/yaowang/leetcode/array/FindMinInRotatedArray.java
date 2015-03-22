@@ -2,7 +2,7 @@ package edu.nyu.yaowang.leetcode.array;
 
 /**
  * Created by Yao on 1/19/15.
- * 和右边的值比较
+ * 为了防止没有乱序这种特殊情况，用mid和end比较
  */
 @SuppressWarnings("unused")
 public class FindMinInRotatedArray {

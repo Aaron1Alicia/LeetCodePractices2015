@@ -7,41 +7,31 @@ import java.util.*;
  */
 public class Anagrams {
     public List<String> anagrams(String[] strs) {
-        List<String> ret = new ArrayList<String>();
-        int n = strs.length;
-        if(n<=1) {
-            return ret;
-        }
-
-        String[] newStrs = new String[n];
-
-        for(int i=0;i<n;i++) {
-            newStrs[i] = sortString(strs[i]);
-        }
-
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        Set<Integer> index = new HashSet<Integer>();
+        HashMap<String, List<String>> ret = new HashMap<String, List<String>>();
 
 
-        for(int i=0;i<n;i++) {
-            if( map.containsKey(newStrs[i])) {
-                index.add(i);
-                index.add(map.get(newStrs[i]));
-            } else {
-                map.put(newStrs[i], i);
+        for(int i=0; i<strs.length; i++) {
+            char[] tmp = strs[i].toCharArray();
+            Arrays.sort(tmp);
+            String temp = new String(tmp);
+
+            if(!ret.containsKey(temp)) {
+                ret.put(temp, new ArrayList<String>());
             }
+
+            ret.get(temp).add(strs[i]);
         }
 
-        for (Integer i: index) {
-            ret.add(strs[i]) ;
+        List<String> result = new ArrayList<String>();
+        for (String key : ret.keySet()) {
+            List<String> temp = ret.get(key);
+            if(temp.size()>1) {
+                result.addAll(temp);
+            }
+
         }
 
-        return ret;
+        return result;
     }
 
-    private String sortString(String s) {
-        char [] c = s.toCharArray();
-        Arrays.sort(c);
-        return new String(c);
-    }
 }

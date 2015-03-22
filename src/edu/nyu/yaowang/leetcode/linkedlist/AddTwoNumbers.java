@@ -7,55 +7,49 @@ import edu.nyu.yaowang.leetcode.ListNode;
  */
 public class AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        if(l1==null) {
-            return l2;
-        }
+        int pre = 0;
+        ListNode dummy = new ListNode(0);
+        ListNode head = dummy;
 
-        if(l2==null) {
-            return l1;
-        }
-
-        ListNode sf = new ListNode(0);
-        ListNode ret = sf;
-
-        int previous = 0;
         while(l1!=null && l2!=null) {
-            ret.next = new ListNode(0);
-            ret = ret.next;
-            int tmp = l1.val+l2.val+previous;
-            if(tmp>=10) {
-                ret.val = tmp-10;
-                previous = 1;
+            int value = 0;
+            value = l1.val+l2.val+pre;
+            if(value>=10) {
+                value = value-10;
+                pre = 1;
             } else {
-                ret.val = tmp;
-                previous = 0;
+                pre = 0;
             }
+            ListNode newNode = new ListNode(value);
+            head.next = newNode;
+            head = head.next;
             l1 = l1.next;
             l2 = l2.next;
-
-
         }
 
-        ListNode left = l1!=null? l1:l2;
+        ListNode left = l1!=null?l1:l2;
         while(left!=null) {
-            ret.next = new ListNode(0);
-            ret = ret.next;
-            int tmp = left.val+previous;
-            if(tmp>=10) {
-                ret.val = tmp-10;
-                previous = 1;
+            int value = left.val+pre;
+            if(value>=10) {
+                value-=10;
+                pre = 1;
             } else {
-                ret.val = tmp;
-                previous = 0;
+                head.next = left;
+                left.val = value;
+                return dummy.next;
             }
+
+            ListNode newNode = new ListNode(value);
+            head.next = newNode;
+            head = head.next;
             left = left.next;
-
         }
 
-        if(previous==1) {
-            ret.next = new ListNode(1);
+        if(pre==1) {
+            head.next = new ListNode(1);
         }
 
-        return sf.next;
+
+        return dummy.next;
     }
 }

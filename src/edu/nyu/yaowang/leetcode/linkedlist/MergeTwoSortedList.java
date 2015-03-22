@@ -1,4 +1,4 @@
-package edu.nyu.yaowang.leetcode.miscellaneous;
+package edu.nyu.yaowang.leetcode.linkedlist;
 
 import edu.nyu.yaowang.leetcode.ListNode;
 
@@ -8,7 +8,7 @@ import edu.nyu.yaowang.leetcode.ListNode;
  */
 
 @SuppressWarnings("unused")
-public class MergeSortedList {
+public class MergeTwoSortedList {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 
         // Fake head to simplify logic

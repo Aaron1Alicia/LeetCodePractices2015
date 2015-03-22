@@ -14,32 +14,27 @@ public class SearchInRotatedSortedArrayTwo {
 
         while(start<=end) {
             int mid = (start+end)/2;
-
             if(A[mid]==target) {
                 return true;
-            }
+            } else if(A[mid]>A[end]) {
 
-            if(A[mid]>A[start]) {
-
-                if(target<A[mid] && target>=A[start]) {
+                if(target>=A[start] && target < A[mid]) {
                     end = mid-1;
                 } else {
                     start = mid+1;
                 }
 
-            } else if (A[mid]<A[start]) {
+            } else if(A[mid]<A[end]){
 
-                if((target>=A[mid+1] && target<=A[end])) {
+                if(target>A[mid] && target <= A[end]) {
                     start = mid+1;
                 } else {
                     end = mid-1;
                 }
-            }
-            else {
-                start++;
-            }
 
-
+            } else {
+                end--;
+            }
         }
 
         return false;

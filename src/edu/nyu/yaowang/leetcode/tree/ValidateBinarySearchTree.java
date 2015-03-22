@@ -16,6 +16,7 @@ public class ValidateBinarySearchTree {
         List<Integer> ret = new ArrayList<Integer>();
         Stack<TreeNode> st = new Stack<TreeNode>();
         TreeNode cur = root;
+        long previous = Long.MIN_VALUE;
 
         while(!st.isEmpty() || cur!=null) {
 
@@ -24,19 +25,35 @@ public class ValidateBinarySearchTree {
                 cur = cur.left;
             } else {
                 cur = st.pop();
-                ret.add(cur.val);
+                if(cur.val<=previous) {
+                    return false;
+                }
+                previous = cur.val;
                 cur = cur.right;
             }
 
         }
 
-        for(int i=1;i< ret.size();i++) {
-            if(ret.get(i)<=ret.get(i-1)) {
-                return false;
-            }
-        }
-
         return true;
 
+    }
+
+    public boolean isValidBST_MINMAX(TreeNode root) {
+
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+
+    }
+
+
+    private boolean isValidBST(TreeNode root, long min, long max) {
+        if(root==null) {
+            return true;
+        }
+
+        if((long)root.val<=min || (long)root.val>=max) {
+            return false;
+        }
+
+        return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
     }
 }

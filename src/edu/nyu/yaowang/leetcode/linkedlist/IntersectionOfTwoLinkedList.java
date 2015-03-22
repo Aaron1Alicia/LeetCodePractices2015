@@ -5,58 +5,51 @@ import edu.nyu.yaowang.leetcode.ListNode;
 /**
  * Created by Yao on 2/1/15.
  */
+@SuppressWarnings("unused")
 public class IntersectionOfTwoLinkedList {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if(headA==null || headB==null) {
             return null;
         }
 
-        ListNode tmpA = headA;
-        ListNode tmpB = headB;
+        int lengthA = getLength(headA);
+        int lengthB = getLength(headB);
 
-        int cntOfA = 0;
-        while(headA!=null) {
-            cntOfA++;
-            headA = headA.next;
-        }
-
-        int cntOfB = 0;
-        while(headB!=null) {
-            cntOfB++;
-            headB = headB.next;
-        }
-
-        if(cntOfB>=cntOfA) {
-            int cnt = cntOfB-cntOfA;
-            headB = tmpB;
-            while(cnt>0) {
-                headB = headB.next;
-                cnt--;
-            }
-            headA=tmpA;
-
-        } else {
-            int cnt = cntOfA-cntOfB;
-            headA = tmpA;
-            while (cnt>0) {
+        int diff = Math.abs(lengthA-lengthB);
+        if(lengthA>=lengthB) {
+            while(diff>0) {
                 headA = headA.next;
-                cnt--;
+                diff--;
             }
-            headB=tmpB;
-
+        } else {
+            while(diff>0) {
+                headB = headB.next;
+                diff--;
+            }
         }
 
-
-        while (headA!=null && headB!=null) {
+        while(headA!=null && headB!=null) {
             if(headA==headB) {
                 return headA;
             } else {
-                headB = headB.next;
-                headA = headA.next;
+                headA=headA.next;
+                headB=headB.next;
             }
         }
 
         return null;
 
+
+    }
+
+
+    private int getLength(ListNode node) {
+        int length = 0;
+        while(node!=null) {
+            length++;
+            node = node.next;
+        }
+
+        return length;
     }
 }

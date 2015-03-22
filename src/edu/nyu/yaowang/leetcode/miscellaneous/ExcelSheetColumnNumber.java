@@ -6,21 +6,15 @@ package edu.nyu.yaowang.leetcode.miscellaneous;
  */
 public class ExcelSheetColumnNumber {
     public int titleToNumber(String s) {
-        char[] charArray = s.toCharArray();
-        int sum=0;
+        int n = s.length();
+        int sum = 0;
 
-        for(int i=0;i<charArray.length;i++) {
-            int tmp=charArray[i]-'A'+1;
-            sum=sum*26+tmp;
+        for(int i=0; i<n; i++) {
+            sum*=26;
+            sum+=(s.charAt(i)-'A'+1);
         }
 
         return sum;
     }
 
-    public static void main(String [] args){
-        String test = "ZB";
-        ExcelSheetColumnNumber testNumber = new ExcelSheetColumnNumber();
-        System.out.println(testNumber.titleToNumber(test));
-
-    }
 }

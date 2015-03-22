@@ -2,10 +2,7 @@ package edu.nyu.yaowang.leetcode.tree;
 
 import edu.nyu.yaowang.leetcode.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by Yao on 1/8/15.
@@ -31,8 +28,9 @@ public class BinaryTreePostorderTraversal {
         ret.add(root.val);
     }
 
-    public List<Integer> preorderTraversalIterative(TreeNode root) {
-        List<Integer> ret = new ArrayList<Integer>();
+    // Reverse解法
+    public List<Integer> preorderTraversalIterativeOne(TreeNode root) {
+        LinkedList<Integer> ret = new LinkedList<Integer>();
         // This stack is used to store those nodes that have lower priority
         // according to inorder traversal
         if(root==null) {
@@ -44,7 +42,7 @@ public class BinaryTreePostorderTraversal {
 
         while(!formerNodes.isEmpty()) {
             TreeNode cur = formerNodes.pop();
-            ret.add(cur.val);
+            ret.addFirst(cur.val);
 
             if(cur.left!=null) {
                 formerNodes.push(cur.left);
@@ -55,8 +53,35 @@ public class BinaryTreePostorderTraversal {
             }
         }
 
-        Collections.reverse(ret);
-
         return ret;
     }
+
+    //常规解法
+    public List<Integer> preorderTraversalIterativeTwo(TreeNode root) {
+        List<Integer> res = new LinkedList<Integer>();
+        if(root==null) return res;
+        Stack<TreeNode> st = new Stack<TreeNode>();
+        TreeNode lastVisited = null;
+
+        while(!st.isEmpty() || root!=null) {
+            if(root!=null) {
+                st.push(root);
+                root = root.left;
+            } else {
+                TreeNode peek = st.peek();
+
+                if(peek.right!=null && peek.right!=lastVisited) {
+                    root = peek.right;
+                } else {
+                    st.pop();
+                    res.add(peek.val);
+                    lastVisited = peek;
+                }
+            }
+        }
+        return res;
+    }
+
+
+
 }

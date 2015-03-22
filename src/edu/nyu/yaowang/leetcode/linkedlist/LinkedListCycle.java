@@ -9,25 +9,15 @@ import edu.nyu.yaowang.leetcode.ListNode;
 @SuppressWarnings("unused")
 public class LinkedListCycle {
     public boolean hasCycle(ListNode head) {
-        if(head==null) {
-            return false;
-        }
-
-        ListNode fast = head.next;
         ListNode slow = head;
+        ListNode fast = head;
 
-        while(fast!=null) {
-
+        while(fast!=null && fast.next!=null) {
+            slow = slow.next;
+            fast = fast.next.next;
             if(slow==fast) {
                 return true;
             }
-
-            slow = slow.next;
-            fast = fast.next;
-            if(fast!=null) {
-                fast = fast.next;
-            }
-
         }
 
         return false;

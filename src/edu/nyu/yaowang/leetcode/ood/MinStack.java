@@ -10,7 +10,7 @@ public class MinStack {
     private Stack<Integer> elements = new Stack<Integer>();
     private Stack<Integer> min = new Stack<Integer>();
 
-    public void push(int x) {
+    public Integer push(int x) {
 
         elements.push(x);
 
@@ -18,15 +18,19 @@ public class MinStack {
             min.push(x);
         }
 
+        return x;
+
     }
 
-    public void pop() {
+    public Integer pop() {
 
         int tmp = elements.pop();
         if(tmp<=min.peek()) {
 
             min.pop();
         }
+
+        return tmp;
     }
 
     public int top() {

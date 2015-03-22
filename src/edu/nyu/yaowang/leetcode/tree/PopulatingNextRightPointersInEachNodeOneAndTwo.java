@@ -17,39 +17,34 @@ public class PopulatingNextRightPointersInEachNodeOneAndTwo {
             return;
         }
 
-        if(root.left!=null) {
-            connectLeft(root.left, root);
+        if(root.left!=null && root.right!=null) {
+            root.left.next = root.right;
+            if(root.next!=null) {
+                root.right.next = root.next.left;
+            }
+            connectByRecursion(root.left);
+            connectByRecursion(root.right);
         }
-
-        if(root.right!=null) {
-            connectRight(root.right, root);
-        }
-
 
     }
 
-    public void connectLeft(TreeLinkNode node, TreeLinkNode parent) {
-        node.next = parent.right;
-        if(node.left!=null) {
-            connectLeft(node.left, node);
-        }
+    public void connectByInterative(TreeLinkNode root) {
+        while(root!=null) {
+            TreeLinkNode temp = new TreeLinkNode(-1);
+            TreeLinkNode cur = temp;
+            while(root!=null) {
+                if(root.left!=null) {
+                    cur.next = root.left;
+                    cur = cur.next;
+                }
+                if(root.right!=null) {
+                    cur.next = root.right;
+                    cur = cur.next;
+                }
+                root = root.next;
+            }
+            root = temp.next;
 
-        if(node.right!=null) {
-            connectRight(node.right, node);
-        }
-    }
-
-    public void connectRight(TreeLinkNode node, TreeLinkNode parent) {
-        if(parent.next!=null) {
-            node.next = parent.next.left;
-        }
-
-        if(node.left!=null) {
-            connectLeft(node.left, node);
-        }
-
-        if(node.right!=null) {
-            connectRight(node.right, node);
         }
 
     }
@@ -59,32 +54,29 @@ public class PopulatingNextRightPointersInEachNodeOneAndTwo {
         if(root==null) {
             return;
         }
+        Queue<TreeLinkNode> queue = new LinkedList<TreeLinkNode>();
 
-        Queue<TreeLinkNode> q = new LinkedList<TreeLinkNode>();
+        queue.add(root);
 
-        q.add(root);
-
-        while(!q.isEmpty()) {
-            int size = q.size();
-
-
-            // size来完成里层循环，或者采用两个queue
-            while(size>0) {
-                TreeLinkNode tmp = q.poll();
-                size--;
-                //如果只使用一个queue,这个判断很重要, 如果使用两个queue, 那么就没有这个判断
-                if(size>0) {
-                    tmp.next = q.peek();
+        while(queue.size()>0) {
+            //Queue<TreeLinkNode> back = new LinkedList<TreeLinkNode>();
+            int n = queue.size();
+            for(int i=0; i<n; i++) {
+                TreeLinkNode cur = queue.poll();
+                if(i==n-1) {
+                    cur.next = null;
+                } else {
+                    cur.next = queue.peek();
                 }
 
-                if(tmp.left!=null) {
-                    q.add(tmp.left);
+                if(cur.left!=null) {
+                    queue.add(cur.left);
                 }
-
-                if(tmp.right!=null) {
-                    q.add(tmp.right);
+                if(cur.right!=null) {
+                    queue.add(cur.right);
                 }
             }
+
 
         }
     }
