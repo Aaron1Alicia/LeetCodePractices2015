@@ -5,30 +5,33 @@ import edu.nyu.yaowang.leetcode.TreeNode;
 /**
  * Created by Yao on 1/21/15.
  */
+
+@SuppressWarnings("unused")
  public class ConvertSortedArrayToBST {
- public TreeNode sortedArrayToBST(int[] num) {
-     if(num.length==0) {
-         return null;
-     }
-  return sortedArrayToBST(num,0,num.length -1);
- }
+    public TreeNode sortedArrayToBST(int[] num) {
+        if(num==null || num.length==0) {
+            return null;
+        }
 
- private TreeNode sortedArrayToBST(int[] num, int start, int end) {
+        int start = 0;
+        int end = num.length-1;
+        return sortedArray(num, 0, end);
 
-       TreeNode ret;
-       if(start==end) {
-         ret = new TreeNode(num[start]);
-         return ret;
-       } else {
-           int mid = (start+end)/2;
-           ret = new TreeNode(num[mid]);
-           if(mid-1>=start) {
-               ret.left = sortedArrayToBST(num, start, mid-1);
-           }
-           if(mid+1<=end) {
-               ret.right = sortedArrayToBST(num, mid+1, end);
-           }
-           return ret;
-       }
- }
+    }
+
+    private TreeNode sortedArray(int[] num, int start, int end) {
+
+        if(start==end) {
+            return new TreeNode(num[start]);
+        } else if(start>end) {
+            return null;
+        } else {
+            int mid = (start+end)/2;
+            TreeNode root = new TreeNode(num[mid]);
+            root.left = sortedArray(num, start, mid-1);
+            root.right = sortedArray(num, mid+1, end);
+            return root;
+        }
+
+    }
 }

@@ -1,4 +1,4 @@
-package edu.nyu.yaowang.leetcode.miscellaneous;
+package edu.nyu.yaowang.leetcode.BitManipulation;
 
 /**
  * Created by Yao on 1/6/15.

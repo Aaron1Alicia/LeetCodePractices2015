@@ -4,6 +4,7 @@ import edu.nyu.yaowang.leetcode.ListNode;
 
 /**
  * Created by Yao on 1/21/15.
+ * Redo, use safeguard to improve logic consistence
  */
 public class SwapNodesInPairs {
     public ListNode swapPairs(ListNode head) {
@@ -12,29 +13,27 @@ public class SwapNodesInPairs {
             return head;
         }
 
-        ListNode first = head;
-        ListNode second = head.next;
-        //这一句是关键，因为Java里所有的instance都是引用，如果不在开始保存，后面修改first，就会修改head.next
-        ListNode result = head.next;
-        ListNode tmp;
+        ListNode sf = new ListNode(0);
+        sf.next = head;
 
-        while(true) {
-            tmp = second.next;
-            second.next = first;
-            if(tmp==null || tmp.next==null) {
-                //这一句也很关键，如果长度不为2，那么就是下一个节点
-                first.next=tmp;
-                break;
-            }
-            // 下一个节点不是tmp, 而是tmp.next
-            first.next = tmp.next;
+        ListNode last = sf;
 
-            first=tmp;
-            second=tmp.next;
+        ListNode slow = null;
+        ListNode fast = null;
+
+        while(last.next!=null && last.next.next!=null) {
+            slow = last.next;
+            fast = last.next.next;
+
+            last.next = fast;
+            slow.next = fast.next;
+            fast.next = slow;
+            last = slow;
+
         }
 
 
-        return result;
+        return sf.next;
 
     }
 }

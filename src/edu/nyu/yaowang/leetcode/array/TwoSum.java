@@ -1,4 +1,4 @@
-package edu.nyu.yaowang.leetcode.miscellaneous;
+package edu.nyu.yaowang.leetcode.array;
 
 import java.util.HashMap;
 import java.util.Map;

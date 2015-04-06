@@ -10,10 +10,8 @@ public class InsertionSortList {
         if(head==null) {
             return head;
         }
-        ListNode sf = new ListNode(0);
-        //sf.next = head;
-        //ListNode pre = head;
 
+        ListNode sf = new ListNode(0);
         ListNode cur = head;
 
         while (cur!=null) {

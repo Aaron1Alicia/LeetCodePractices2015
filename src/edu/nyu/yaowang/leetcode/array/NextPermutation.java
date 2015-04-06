@@ -5,6 +5,7 @@ import java.util.Arrays;
 /**
  * Created by Yao on 2/11/15.
  */
+@SuppressWarnings("unused")
 public class NextPermutation {
 
     public void nextPermutation(int[] num) {

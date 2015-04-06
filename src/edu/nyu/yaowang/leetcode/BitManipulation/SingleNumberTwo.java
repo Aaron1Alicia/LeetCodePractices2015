@@ -1,8 +1,9 @@
-package edu.nyu.yaowang.leetcode.miscellaneous;
+package edu.nyu.yaowang.leetcode.BitManipulation;
 
 /**
  * Created by Yao on 1/21/15.
  */
+@SuppressWarnings("unused")
 public class SingleNumberTwo {
     public int singleNumber(int[] A) {
         int ret = 0;

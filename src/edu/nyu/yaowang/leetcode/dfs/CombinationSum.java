@@ -12,32 +12,36 @@ import java.util.List;
 public class CombinationSum {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
 
+        Arrays.sort(candidates);
         List<List<Integer>> ret = new ArrayList<List<Integer>>();
         LinkedList<Integer> tmp = new LinkedList<Integer>();
-        Arrays.sort(candidates);
-
-        dfs(candidates, target, 0,  ret, tmp);
+        dfs(ret, tmp, 0, candidates, target);
 
         return ret;
-
-
     }
 
-
-    private void dfs(int[] candidates, int target, int pos, List<List<Integer>> ret,
-                     LinkedList<Integer> tmp) {
-        if(target==0) {
+    private void dfs(List<List<Integer>> ret,LinkedList<Integer> tmp, int start, int[] candidates, int target) {
+        if(target==0){
             ret.add(new LinkedList<Integer>(tmp));
-            return;
-        } else if(target < 0) {
-            return;
-        }
+        } else {
 
-        //这题的关键是从pos这里开始迭代，否则会产生不递增的结果
-        for(int i=pos; i< candidates.length; i++) {
-            tmp.add(candidates[i]);
-            dfs(candidates, target-candidates[i],i+1,ret, tmp);
-            tmp.removeLast();
+            for(int i=start; i<candidates.length; i++) {
+                if(target-candidates[i]>=0) {
+                    tmp.add(candidates[i]);
+                    dfs(ret, tmp, i, candidates, target-candidates[i]);
+                    tmp.removeLast();
+
+                    //剪枝
+                    while(i<candidates.length-1 && candidates[i]==candidates[i+1]) {
+                        i++;
+                    }
+                }
+                //这里是剪枝
+                else {
+                    return;
+                }
+            }
+
         }
 
     }

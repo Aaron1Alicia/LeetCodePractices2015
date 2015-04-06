@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created by Yao on 1/23/15.
  * Typical DFS题目, base case+recursion
+ * You can add null to Java list, this is interesting
  */
 public class UniqueBinarySearchTreesTwo {
     public List<TreeNode> generateTrees(int n) {

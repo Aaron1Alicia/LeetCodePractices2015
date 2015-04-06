@@ -18,38 +18,23 @@ public class FlattenBinaryTreeToLinkedList {
             return;
         }
 
-        dfs(root);
-
-    }
-
-
-    private TreeNode dfs(TreeNode root) {
-
-        if(root.left==null && root.right==null) {
-            return root;
-        }
-
         TreeNode left = root.left;
         TreeNode right = root.right;
 
-        TreeNode tail = root;
 
-        // Left tree
-        if(left!=null) {
-            tail = dfs(root.left);
-            root.left = null;
-            root.right = left;
+        flatten(left);
+        flatten(right);
+
+        root.left = null;
+        root.right = left;
+
+        TreeNode cur = root;
+        while(cur.right!=null) {
+            cur = cur.right;
         }
 
+        cur.right = right;
 
-        // Right tree
-        if(right!=null) {
-            tail.right = right;
-            tail = dfs(root.right);
-        }
-
-
-        return tail;
     }
 
     public void iterative(TreeNode root) {

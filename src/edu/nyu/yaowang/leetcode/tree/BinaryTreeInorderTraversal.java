@@ -1,5 +1,6 @@
 package edu.nyu.yaowang.leetcode.tree;
 
+import edu.nyu.yaowang.leetcode.TreeGenerator;
 import edu.nyu.yaowang.leetcode.TreeNode;
 
 import java.util.ArrayList;
@@ -84,6 +85,29 @@ public class BinaryTreeInorderTraversal {
         }
 
         return ret;
+    }
+
+
+    private int sum = 0;
+    public int inorderRecursionCalculateSum(TreeNode root) {
+        if(root==null) {
+            return 0;
+        }
+        inorderRecursionCalculateSum(root.left);
+        sum += root.val;
+        inorderRecursionCalculateSum(root.right);
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        int[] treeArrayOne = {1, 2, 3, -99, 4, -99, 5, 6, 7};
+        int[] treeArrayTwo = {1, 2, 4, -99, 4, -99, 5, 6, 7};
+        TreeNode p = TreeGenerator.generate(treeArrayOne);
+
+        BinaryTreeInorderTraversal inorderTraversal = new BinaryTreeInorderTraversal();
+
+        System.out.println(inorderTraversal.inorderRecursionCalculateSum(p));
+
     }
 
 }

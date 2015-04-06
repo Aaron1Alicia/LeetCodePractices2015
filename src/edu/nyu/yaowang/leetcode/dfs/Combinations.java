@@ -11,17 +11,15 @@ public class Combinations {
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> ret = new ArrayList<List<Integer>>();
         LinkedList<Integer> tmp = new LinkedList<Integer>();
-
-        generate(1, n, k, ret, tmp);
+        dfs(1, n, k, ret, tmp);
         return ret;
     }
 
-    private void generate(int start, int end, int k, List<List<Integer>> ret,
-                          LinkedList<Integer> tmp) {
+    private void dfs(int start, int end, int k, List<List<Integer>> ret,
+                     LinkedList<Integer> tmp) {
 
         if(k==0) {
             ret.add(new LinkedList<Integer>(tmp));
-            return;
         }
         //这一句是剪枝，不过现实中，似乎没有这一行也可以过。去掉这行之后就是标准的DFS的配置
         else if( end- start< k-1) {
@@ -29,11 +27,9 @@ public class Combinations {
         }
         for(int i=start; i<=end; i++) {
             tmp.add(i);
-            generate(i+1, end, k-1, ret, new LinkedList<Integer>(tmp));
+            dfs(i + 1, end, k - 1, ret, new LinkedList<Integer>(tmp));
             tmp.removeLast();
         }
-
-        return;
 
     }
 }

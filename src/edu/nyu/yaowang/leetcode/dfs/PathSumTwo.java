@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by Yao on 2/1/15.
  */
+@SuppressWarnings("unused")
 public class PathSumTwo {
 
     public List<List<Integer>> pathSum(TreeNode root, int sum) {

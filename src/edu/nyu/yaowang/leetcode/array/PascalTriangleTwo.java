@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class PascalTriangleTwo {
     public List<Integer> getRow(int rowIndex) {
-        //这是leetcode对k的定义问题，不用在意
+        //这是Leetcode对k的定义问题，不用在意
         rowIndex+=1;
         List<Integer> ret = new ArrayList<Integer>();
         if(rowIndex<=0) {

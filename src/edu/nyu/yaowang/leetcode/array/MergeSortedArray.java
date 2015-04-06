@@ -1,4 +1,4 @@
-package edu.nyu.yaowang.leetcode.miscellaneous;
+package edu.nyu.yaowang.leetcode.array;
 
 /**
  * Created by Yao on 1/7/15.
@@ -23,9 +23,7 @@ public class MergeSortedArray {
         }
 
         while(j>=0) {
-            A[k] = B[j];
-            k--;
-            j--;
+            A[k--] = B[j--];
         }
 
     }

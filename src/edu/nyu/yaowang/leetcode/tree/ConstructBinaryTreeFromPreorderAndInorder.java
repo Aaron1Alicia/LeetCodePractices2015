@@ -7,15 +7,8 @@ import edu.nyu.yaowang.leetcode.TreeNode;
  */
 public class ConstructBinaryTreeFromPreorderAndInorder {
     public TreeNode buildTree(int[] preorder, int[] inorder ) {
-        if(inorder==null || preorder==null) {
-            return null;
-        }
 
-        if(inorder.length==0) {
-            return null;
-        }
-
-        if(inorder.length!=preorder.length) {
+        if(preorder==null || inorder==null || preorder.length!=inorder.length || preorder.length==0) {
             return null;
         }
 
@@ -27,6 +20,7 @@ public class ConstructBinaryTreeFromPreorderAndInorder {
     private TreeNode buildTree(int[] inorder, int starti, int endi,
                                int[] preorder, int startp, int endp) {
 
+        //这个条件很重要，因为tree有可能不是complete tree
         if(starti>endi) {
             return null;
         }

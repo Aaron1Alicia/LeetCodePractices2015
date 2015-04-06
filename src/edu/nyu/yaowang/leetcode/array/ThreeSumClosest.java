@@ -5,6 +5,7 @@ import java.util.Arrays;
 /**
  * Created by Yao on 2/7/15.
  */
+@SuppressWarnings("unused")
 public class ThreeSumClosest {
     public int threeSumClosest(int[] num, int target) {
         int ret = num[0] + num[1] + num[2];

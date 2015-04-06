@@ -23,15 +23,29 @@ public class Subset {
     private void generate(int[] S, int pos, LinkedList<Integer> tmp,
                                         List<List<Integer>> ret) {
         if(pos==S.length){
+            System.out.println("here!");
             return;
         }
 
         tmp.add(S[pos]);
+        System.out.println("Add "+S[pos]);
+        System.out.println(tmp);
         //这里比较关键，注意java的instance都是引用，因此要new新的instance
         ret.add(new LinkedList<Integer>(tmp));
         generate(S, pos+1,tmp, ret);
         //这里是所谓的回溯算法
+        System.out.println("Remove "+tmp.getLast());
         tmp.removeLast();
         generate(S, pos+1, tmp, ret);
+    }
+
+
+    public static void main(String[] args) {
+
+        int[] S = new int[] {1, 2, 3};
+        Subset subset = new Subset();
+        subset.subsets(S);
+
+
     }
 }

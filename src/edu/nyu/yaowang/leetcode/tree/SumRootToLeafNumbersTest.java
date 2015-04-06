@@ -1,4 +1,4 @@
-package edu.nyu.yaowang.leetcode.miscellaneous;
+package edu.nyu.yaowang.leetcode.tree;
 
 import edu.nyu.yaowang.leetcode.TreeGenerator;
 import edu.nyu.yaowang.leetcode.TreeNode;

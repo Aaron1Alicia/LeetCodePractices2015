@@ -2,6 +2,9 @@ package edu.nyu.yaowang.leetcode.tree;
 
 import edu.nyu.yaowang.leetcode.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Stack;
+
 /**
  * Created by Yao on 2/5/15.
  * http://fisherlei.blogspot.com/2012/12/leetcode-recover-binary-search-tree.html
@@ -68,6 +71,49 @@ public class RecoverBinarySearchTree {
             f2.val = tmp;
         }
 
+
+    }
+
+    /*
+      O(log(n))空间复杂度
+     */
+    public void recoverTreeUsingStack(TreeNode root) {
+
+        Stack<TreeNode> st = new Stack<TreeNode>();
+        LinkedList<TreeNode> record = new LinkedList<TreeNode>();
+        TreeNode cur = root;
+        TreeNode pre = null;
+
+        while(cur!=null || !st.isEmpty()) {
+            if(cur!=null) {
+                st.push(cur);
+                cur = cur.left;
+            } else {
+
+                cur = st.pop();
+                if(pre!=null && pre.val>cur.val) {
+                    if(record.size()==0) {
+                        record.add(pre);
+                        record.add(cur);
+                    } else {
+
+                        record.removeLast();
+                        record.add(cur);
+                        break;
+                    }
+                }
+
+
+                pre = cur;
+                cur = cur.right;
+
+            }
+
+        }
+
+        int temp = record.get(0).val;
+        record.get(0).val = record.get(1).val;
+        record.get(1).val = temp;
 
     }
 }
