@@ -11,7 +11,7 @@ import java.util.List;
 public class SpiralMatrix {
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> ret = new ArrayList<Integer>();
-        if (matrix == null || matrix.length == 0) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length ==0) {
             return ret;
         }
         int top = 0;

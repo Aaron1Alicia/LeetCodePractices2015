@@ -2,15 +2,11 @@ package edu.nyu.yaowang.leetcode.miscellaneous;
 
 /**
  * Created by Yao on 2/1/15.
- * 很无聊的一道题，纯编程
  */
 public class CountAndSay {
     public String countAndSay(int n) {
-        if(n==0) {
+        if(n<=0) {
             return "";
-        }
-        if(n==1) {
-            return "1";
         }
 
         String cur = "1";
@@ -30,15 +26,13 @@ public class CountAndSay {
                 }
 
             }
+            //注意循环外面还要最后append一下，这是这题的一个小陷进吧算
             ret.append(Integer.toString(count));
             ret.append(cur.charAt(cur.length()-1));
             cur = ret.toString();
         }
 
-
-
         return cur;
-
     }
 
     public static void main(String[] args) {

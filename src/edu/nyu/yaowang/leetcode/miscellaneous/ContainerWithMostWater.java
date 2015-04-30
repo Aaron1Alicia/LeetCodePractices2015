@@ -7,20 +7,26 @@ package edu.nyu.yaowang.leetcode.miscellaneous;
  */
 public class ContainerWithMostWater {
     public int maxArea(int[] height) {
-        int area = 0;
-        int i = 0;
-        int j = height.length-1;
-
-        while(i<j) {
-           int tmp = Math.min(height[i], height[j])*(j-i);
-            area = Math.max(tmp, area);
-            if(height[i]>height[j]) {
-               j--;
-            } else {
-                i++;
-            }
+        int ret = 0;
+        if(height==null || height.length==0) {
+            return ret;
         }
 
-        return area;
+        int l = 0;
+        int r = height.length-1;
+
+        while(l<r) {
+            int bottleneck = Math.min(height[l], height[r]);
+            ret = Math.max(ret, (r-l)*bottleneck);
+
+            if(height[l]>height[r]) {
+                r--;
+            } else {
+                l++;
+            }
+
+        }
+
+        return ret;
     }
 }

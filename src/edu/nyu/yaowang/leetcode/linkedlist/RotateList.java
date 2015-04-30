@@ -37,6 +37,7 @@ public class RotateList {
             fast = fast.next;
         }
 
+        //先连接起来，处理k=0或者k=length的情况
         fast.next = sf.next;
         sf.next = slow.next;
         slow.next = null;

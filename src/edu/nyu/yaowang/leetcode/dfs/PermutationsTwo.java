@@ -14,6 +14,7 @@ public class PermutationsTwo {
         LinkedList<Integer> tmp = new LinkedList<Integer>();
 
         boolean[] isVisited = new boolean[num.length];
+        //这个sort很关键,没有sort的话,结果是不对的. 不过permutation i可以不sort
         Arrays.sort(num);
         generate(ret, tmp, num, isVisited);
         return ret;
@@ -38,6 +39,18 @@ public class PermutationsTwo {
                     i++;
                 }
             }
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        PermutationsTwo permutationsTwo = new PermutationsTwo();
+        int[] num = {-1, -1, -3, -1};
+        List<List<Integer>> ret = permutationsTwo.permute(num);
+
+        for(List<Integer> tmp: ret) {
+            System.out.println(tmp);
         }
 
     }

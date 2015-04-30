@@ -6,47 +6,49 @@ package edu.nyu.yaowang.leetcode.miscellaneous;
 public class AddBinary {
     public String addBinary(String a, String b) {
 
+        if(a==null || a.length()==0) {
+            return b;
+        } else if(b==null || b.length()==0) {
+            return a;
+        }
+
+        if(b.length()>a.length()) {
+            String tmp = a;
+            a = b;
+            b = tmp;
+        }
+
+        int lengthOfA = a.length();
+        int lengthOfB = b.length();
+
+        String A = new StringBuilder(a).reverse().toString();
+        String B = new StringBuilder(b).reverse().toString();
+
         StringBuilder sb = new StringBuilder();
 
-        int lengthA = a.length()-1;
-        int lengthB = b.length()-1;
-        int sum = 0;
-        int previous = 0;
+        int pre = 0;
+        int i = 0;
 
-        while (lengthA>=0 || lengthB>=0) {
-            int valueA=0;
-            int valueB=0;
-            if(lengthA>=0) {
-                valueA = Integer.parseInt(a.substring(lengthA, lengthA+1));
-            }
-            if(lengthB>=0) {
-                valueB = Integer.parseInt(b.substring(lengthB, lengthB+1));
-            }
-            sum = valueA+valueB+previous;
-            if(sum==0) {
-                previous=0;
-                sb.append('0');
-            } else if(sum==1) {
-                previous=0;
-                sb.append('1');
-            } else if(sum==2) {
-                previous=1;
-                sb.append('0');
+        for(;i<lengthOfB; i++) {
+            int tmpA = A.charAt(i)=='1'?1:0;
+            int tmpB = B.charAt(i)=='1'?1:0;
 
-            } else {
-                previous=1;
-                sb.append('1');
-            }
-            lengthA--;
-            lengthB--;
+            sb.append((tmpA+tmpB+pre)%2);
+            pre = (tmpA+tmpB+pre)/2;
         }
 
-        if(previous==1) {
+        while(i<lengthOfA) {
+            int tmp = A.charAt(i)=='1'? 1:0;
+            sb.append((pre+tmp)%2);
+            pre = (pre+tmp)/2;
+            i++;
+        }
+
+        if(i==lengthOfA && pre==1) {
             sb.append('1');
         }
-        sb.reverse();
 
-        return sb.toString();
+        return sb.reverse().toString();
 
     }
 

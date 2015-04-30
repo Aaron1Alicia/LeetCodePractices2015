@@ -6,39 +6,30 @@ import java.util.Stack;
  * Created by Yao on 2/6/15.
  * 加上另一个stack, 用空间换时间
  */
+@SuppressWarnings("unused")
 public class MinStack {
-    private Stack<Integer> elements = new Stack<Integer>();
-    private Stack<Integer> min = new Stack<Integer>();
+    private Stack<Integer> st = new Stack<Integer>();
+    private Stack<Integer> minStack = new Stack<Integer>();
 
-    public Integer push(int x) {
-
-        elements.push(x);
-
-        if(min.isEmpty() || x<=min.peek()) {
-            min.push(x);
+    public void push(int x) {
+        st.push(x);
+        if(minStack.size()==0 || x<=getMin()) {
+            minStack.push(x);
         }
-
-        return x;
-
     }
 
-    public Integer pop() {
-
-        int tmp = elements.pop();
-        if(tmp<=min.peek()) {
-
-            min.pop();
+    public void pop() {
+        Integer tmp = st.pop();
+        if(tmp!=null && tmp==getMin()) {
+            minStack.pop();
         }
-
-        return tmp;
     }
 
     public int top() {
-        return elements.peek();
-
+        return st.peek();
     }
 
     public int getMin() {
-        return min.peek();
+        return minStack.peek();
     }
 }

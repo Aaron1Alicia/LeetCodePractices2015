@@ -1,8 +1,8 @@
-package edu.nyu.yaowang.leetcode.miscellaneous;
+package edu.nyu.yaowang.leetcode.matrix;
 
 /**
  * Created by Yao on 1/22/15.
- * BST, 注意循环退出的条件和index的计算
+ * 二分, 注意循环退出的条件和index的计算
  */
 @SuppressWarnings("unused")
 public class Search2DMatrix {

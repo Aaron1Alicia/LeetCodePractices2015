@@ -11,28 +11,36 @@ import java.util.List;
 public class MergeIntervals {
     public List<Interval> merge(List<Interval> intervals) {
 
-        Comparator<Interval> comparator =
-                new Comparator<Interval>() {
-                    @Override
-                    public int compare(Interval o1, Interval o2) {
-                        return o1.start - o2.start;
-                    }
-                };
+        if(intervals==null || intervals.size()==0) {
+            return intervals;
+        }
+
+        Comparator<Interval> comparator = new Comparator<Interval>() {
+            @Override
+            public int compare(Interval i1, Interval i2) {
+                return (i1.start - i2.start);
+            }
+        };
+
+        // sort的目的是确保cur.start>=pre.start
         Collections.sort(intervals, comparator);
 
+        Interval pre = intervals.get(0);
         for(int i=1; i<intervals.size(); i++) {
+
             Interval cur = intervals.get(i);
-            Interval pre = intervals.get(i-1);
 
-            if(cur.start<=pre.end && cur.end>=pre.start) {
-                cur.start = Math.min(cur.start, pre.start);
+            if(cur.start>pre.end) {
+                pre = cur;
+            }
+            // 在第一步sort后， cur.start>=pre.start, 如果cur.start<=pre.end,
+            // 那么表示两个interval conflict, 开始merge
+            else {
+                intervals.remove(pre);
+                cur.start = Math.min(pre.start, cur.start);
                 cur.end = Math.max(cur.end, pre.end);
-                intervals.remove(i-1);
+                pre = cur;
                 i--;
-            } else if(cur.end < pre.start) {
-                intervals.remove(i);
-                intervals.add(i-1, cur);
-
             }
 
         }

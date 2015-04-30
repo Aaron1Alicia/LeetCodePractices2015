@@ -2,39 +2,33 @@ package edu.nyu.yaowang.leetcode.miscellaneous;
 
 /**
  * Created by Yao on 2/11/15.
- * 这道题毫无技术含量，但是要注意edge case
- * String的题edge case都很多
+ * String的题一定要注意edge case
  */
 public class ZigzagConversion {
     public String convert(String s, int nRows) {
+        if(s == null || s.length()==0 || nRows <=0)
+            return "";
 
-        //注意这个edge case
+        //这个edge case很重要
         if(nRows==1) {
             return s;
         }
-        StringBuffer[] tmp = new StringBuffer[nRows];
+
+        int size = 2*nRows-2;
+        StringBuilder ret = new StringBuilder();
         for(int i=0; i<nRows; i++) {
-            tmp[i] = new StringBuffer();
-        }
-        int n = nRows+(nRows-2);
+            for(int j=i; j<s.length(); j+=size) {
+                ret.append(s.charAt(j));
 
-        for(int i=0; i< s.length();i++) {
-            int left = i%n;
+                //注意这个条件，第一个和最后一个都只用加一次，然后还有一个边界的检查
+                if(i!=0 && i!=nRows-1 && j+size-2*i<s.length()) {
+                    ret.append(s.charAt(j+size-2*i));
+                }
 
-            if(left<nRows) {
-                tmp[left].append(s.charAt(i));
-            } else {
-                tmp[2*nRows-2-left].append(s.charAt(i));
             }
-
         }
 
-        String ret = "";
-        for(int i=0; i<tmp.length;i++) {
-            ret+=tmp[i].toString();
-        }
-
-        return ret;
+        return ret.toString();
     }
 
 

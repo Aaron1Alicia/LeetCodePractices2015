@@ -8,25 +8,24 @@ import java.util.Set;
  */
 public class WordBreak {
     public boolean wordBreak(String s, Set<String> dict) {
+        if(s==null) {
+            return true;
+        }
 
         int n = s.length();
         boolean[] dp = new boolean[n+1];
         dp[n] =  true;
 
         for(int i=n-1; i>=0;i--) {
-
             for(int j=i+1;j<=n;j++) {
-
-                if(dict.contains(s.substring(i,j)) && dp[j]) {
+                if(dp[j] && dict.contains(s.substring(i,j))) {
                     dp[i] = true;
                     break;
                 }
-
             }
 
         }
 
         return dp[0];
-
     }
 }

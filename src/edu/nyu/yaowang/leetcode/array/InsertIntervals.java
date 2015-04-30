@@ -17,7 +17,7 @@ public class InsertIntervals {
             return intervals;
         }
         Interval cur;
-        boolean flag = false;
+        // i定义在外面，方便记录插入的位置, 这个code写的很犀利。
         int i=0;
 
         for(; i<intervals.size(); i++) {
@@ -31,6 +31,7 @@ public class InsertIntervals {
                 newInterval.start = Math.min(cur.start, newInterval.start);
                 newInterval.end = Math.max(cur.end, newInterval.end);
                 intervals.remove(i);
+                //这个i--很重要
                 i--;
             }
 

@@ -4,34 +4,38 @@ import edu.nyu.yaowang.leetcode.ListNode;
 
 /**
  * Created by Yao on 2/2/15.
- * 一条链表记录小的，一条链表记录大的。
- * 然后将两条链表连接起来
+ * 单独一条链表记录大的那个部分,小的部分在原始的链表上操作,然后将两个表链接起来
  */
+@SuppressWarnings("unused")
 public class PartitionList {
     public ListNode partition(ListNode head, int x) {
-        ListNode safeguard = new ListNode(0);
-        ListNode last=safeguard;
-        ListNode bigger = new ListNode(0);
-        ListNode test = bigger;
+        if(head==null) {
+            return null;
+        }
 
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
+        ListNode dummy2 = new ListNode(0);
+        ListNode big = dummy2;
         ListNode cur = head;
 
         while(cur!=null) {
-            if(cur.val<x) {
-                last.next = cur;
+            if(cur.val>=x) {
+                big.next = cur;
                 cur = cur.next;
-                last = last.next;
-                last.next = null;
+                //这里要连接上,不然小表就断了.
+                pre.next = cur;
+                big = big.next;
+                big.next = null;
             } else {
-                test.next = cur;
+                pre = cur;
                 cur = cur.next;
-                test = test.next;
-                test.next = null;
             }
         }
 
-        last.next = bigger.next;
-        return safeguard.next;
+        pre.next = dummy2.next;
+        return dummy.next;
 
     }
 }

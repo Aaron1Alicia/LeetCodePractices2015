@@ -1,4 +1,4 @@
-package edu.nyu.yaowang.leetcode.implementation;
+package edu.nyu.yaowang.leetcode.miscellaneous;
 
 import java.util.ArrayList;
 import java.util.List;
